@@ -785,18 +785,39 @@ def page_klasifikasi():
             # ── 2. Metrics row ────────────────────────────────────────────────
             m1, m2, m3, m4 = st.columns(4)
             with m1:
-                st.metric(
-                    label="🎯 Keyakinan Model",
-                    value=f"{conf:.1f}%",
-                    delta="Tinggi" if conf >= 75 else ("Sedang" if conf >= 50 else "Rendah"),
-                )
+                st.markdown(f"""
+                    <div style='background:#0a1a12; border:1px solid #1f3028; border-radius:10px; padding:14px 16px;'>
+                        <div style='font-size:0.7rem; color:#556b5f; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;'>🎯 Keyakinan Model</div>
+                        <div style='font-size:1.6rem; font-weight:700; color:#e8efe9;'>{conf:.1f}%</div>
+                        <div style='font-size:0.75rem; margin-top:4px; color:{"#4ade80" if conf >= 75 else ("#e8a13a" if conf >= 50 else "#E53935")};'>
+                            {"▲ Tinggi" if conf >= 75 else ("● Sedang" if conf >= 50 else "▼ Rendah")}
+                        </div>
+                    </div>
+                """, unsafe_allow_html=True)
             with m2:
-                st.metric(label="🌿 Status Lahan",    value=predicted_label)
+                st.markdown(f"""
+                    <div style='background:#0a1a12; border:1px solid #1f3028; border-radius:10px; padding:14px 16px;'>
+                        <div style='font-size:0.7rem; color:#556b5f; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;'>🌿 Status Lahan</div>
+                        <div style='font-size:1.6rem; font-weight:700; color:#e8efe9;'>{predicted_label}</div>
+                        <div style='font-size:0.75rem; margin-top:4px; color:#3a5244;'>Hasil Klasifikasi</div>
+                    </div>
+                """, unsafe_allow_html=True)
             with m3:
-                st.metric(label="📊 Prediksi Kelas",  value=grade_label)
+                st.markdown(f"""
+                    <div style='background:#0a1a12; border:1px solid #1f3028; border-radius:10px; padding:14px 16px;'>
+                        <div style='font-size:0.7rem; color:#556b5f; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;'>📊 Prediksi Kelas</div>
+                        <div style='font-size:1.6rem; font-weight:700; color:#e8efe9;'>{grade_label}</div>
+                        <div style='font-size:0.75rem; margin-top:4px; color:#3a5244;'>Grade Lahan</div>
+                    </div>
+                """, unsafe_allow_html=True)
             with m4:
-                st.metric(label="🧪 Parameter Diuji", value=f"{len(features)} Fitur")
-
+                st.markdown(f"""
+                    <div style='background:#0a1a12; border:1px solid #1f3028; border-radius:10px; padding:14px 16px;'>
+                        <div style='font-size:0.7rem; color:#556b5f; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;'>🧪 Parameter Diuji</div>
+                        <div style='font-size:1.6rem; font-weight:700; color:#e8efe9;'>{len(features)} Fitur</div>
+                        <div style='font-size:0.75rem; margin-top:4px; color:#3a5244;'>Total Input</div>
+                    </div>
+                """, unsafe_allow_html=True)
             # ── 3. Probabilitas per Kelas ─────────────────────────────────────
             st.markdown("---")
             st.subheader("📈 Distribusi Probabilitas Kelas")
