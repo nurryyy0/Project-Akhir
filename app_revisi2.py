@@ -592,7 +592,7 @@ def page_klasifikasi():
 
     WARNA_BAR = {
         "Kurang Subur": "#E53935",
-        "Cukup Subur":  "#00ACC1",
+        "Cukup Subur":  "#e8a13a",
         "Sangat Subur": "#43A047",
     }
 
