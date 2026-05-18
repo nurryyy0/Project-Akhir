@@ -1039,12 +1039,17 @@ def page_klasifikasi():
             st.markdown("---")
             st.subheader("📊 Perbandingan Input vs Data Ideal")
 
-            TOLERANSI_ABSOLUT = {
-                "N":  10,  "P":  10,  "K":  10,
-                "pH": 1.0, "EC": 0.1, "OC": 0.1,
-                "S":  1.0, "Zn": 0.1, "Fe": 1.0,
-                "Cu": 1.0, "Mn": 1.0, "B":  0.1,
-            }
+            # mengambil label kelas tertinggi (Sangat Subur)
+            _kelas_sangat_subur = max(df["Output"].unique())
+            # Hitung standar deviasi tiap fitur di kelas Sangat Subur
+            # Standar deviasi = rata-rata jarak tiap nilai dari rata-ratanya
+            # → semakin besar std, semakin lebar sebaran data di kelas itu
+            # → dipakai sebagai toleransi karena mencerminkan "batas wajar" data asli
+            _std = df[df["Output"] == _kelas_sangat_subur][list(DATA_IDEAL.keys())].std()
+
+            # Ubah ke dictionary agar bisa dipanggil per fitur: TOLERANSI_ABSOLUT["N"], dll
+            # Tujuan: input yang memang Sangat Subur tidak akan kena rekomendasi kurang/lebih
+            TOLERANSI_ABSOLUT = _std.to_dict()
 
             rows     = []
             kurang   = []
