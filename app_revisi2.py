@@ -1765,7 +1765,7 @@ def page_tentang():
         with open(path, "rb") as f:
             return base64.b64encode(f.read()).decode()
 
-    img_b64 = load_image_b64("WhatsApp Image 2026-05-04 at 10.26.55.jpeg")
+    img_b64 = load_image_b64("Gemini_Generated_Image_md2ip6md2ip6md2i.png")
 
     tab1, tab2 = st.tabs(["👤 Tentang Developer", "🧠 Tentang Model"])
 
